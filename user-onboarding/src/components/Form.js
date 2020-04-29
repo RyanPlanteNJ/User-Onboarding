@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
-import styled from 'styled-components';
 
 export default function Form () {
-    const [post, setPost] = useState([])
+    const [post, setPost] = useState([]);
     const [formState, setFormState] = useState ({
         name: "",
         email: "",
@@ -19,19 +18,13 @@ export default function Form () {
         terms: "",
     });
 
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const formSchema = yup.object().shape({
-        name: yup
-            .string()
-            .required("Name required in order to join"),
-        email: yup
-            .string()
-            .email("Email not valid. Please check again")
-            .required(),
-        terms: yup
-            .boolean()
-            .oneOf([true], "You must agree to Terms of Service in order to join")
+        name: yup.string().required("Name required in order to join"),
+        email: yup.string().email("Email not valid. Please check again").required(),
+        terms: yup.boolean().oneOf([true], "You must agree to Terms of Service in order to join"),
+        password: yup.string().required("Please enter in a password")
     });
 
     const validateChange = e => {
@@ -41,17 +34,19 @@ export default function Form () {
             .then (valid => {
                 setErrors({...errors, [e.target.name]: "" });
             })
-            .catch(err => setErrors({...errors, [e.target.name]: err.errors[0]}));
-    }
+            .catch(err => setErrors({...errors, [e.target.name]: err.errors[0] }));
+    };
 
     useEffect(() => {
-        formSchema.isValid(formState).then (valid => {
+        formSchema.isValid(formState).then(valid => {
+            console.log("valid?", valid);
             setIsButtonDisabled(!valid);
         });
-    },[formState]);
+    }, [formState]);
 
     const formSubmit = e => {
         e.preventDefault();
+        console.log("Form sent!");
         axios
             .post("https://reqres.in/api/users")
             .then (response => {
@@ -64,7 +59,8 @@ export default function Form () {
                 });
             })
             .catch(err => console.log(err.response));
-    };
+        };
+     
 
     const inputChange = e => {
         e.persist();
@@ -75,17 +71,20 @@ export default function Form () {
         };
         validateChange(e);
         setFormState(newFormData);
-    }
+    };
 
     return (
-        <form>
+        <form onSubmit={formSubmit}>
             <label htmlFor="name">
                 Name: 
                 <input
                     id="name"
                     type="text"
                     name="name"
+                    onChange={inputChange}
+                    value={formState.name}
                 />
+                {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null }
             </label>
 
             <label htmlFor="email">
@@ -94,7 +93,12 @@ export default function Form () {
                     id="email"
                     type="email"
                     name="email"
+                    onChange={inputChange}
+                    value={formState.email}
                 />
+                {errors.email.length > 0 ? (
+                    <p className="error">{errors.email}</p>
+                ) : null }
             </label>
 
             <label htmlFor="password">
@@ -103,6 +107,8 @@ export default function Form () {
                     id="password"
                     type="password"
                     name="password"
+                    onChange={inputChange}
+                    value={formState.password}
                 />
             </label>
 
@@ -110,6 +116,8 @@ export default function Form () {
                 <input
                 type="checkbox"
                 name="terms"
+                onChange={inputChange}
+                checked={formState.terms}   
                 />
                 Terms of Service
             </label>
@@ -117,6 +125,7 @@ export default function Form () {
             <button disabled={isButtonDisabled} type="submit">
                 Submit
             </button>
+            <pre>{JSON.stringify(post, null, 1)}</pre>
         </form>
     )
 }
