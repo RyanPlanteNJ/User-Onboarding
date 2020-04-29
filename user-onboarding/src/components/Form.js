@@ -3,7 +3,8 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 export default function Form () {
-    const [post, setPost] = useState([]);
+    const [user, setUser] = useState([]);
+
     const [formState, setFormState] = useState ({
         name: "",
         email: "",
@@ -50,7 +51,7 @@ export default function Form () {
         axios
             .post("https://reqres.in/api/users")
             .then (response => {
-                setPost(response.data);
+                setUser(response.data);
                 setFormState({
                       name: "",
                       email: "",
@@ -125,7 +126,7 @@ export default function Form () {
             <button disabled={isButtonDisabled} type="submit">
                 Submit
             </button>
-            <pre>{JSON.stringify(post, null, 1)}</pre>
-        </form>
+            <pre>{JSON.stringify(user,null,1)}</pre>
+           </form>
     )
 }
