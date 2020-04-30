@@ -49,7 +49,7 @@ export default function Form () {
         e.preventDefault();
         console.log("Form sent!");
         axios
-            .post("https://reqres.in/api/users")
+            .post("https://reqres.in/api/users", formState)
             .then (response => {
                 setUser(response.data);
                 setFormState({
@@ -126,7 +126,7 @@ export default function Form () {
             <button disabled={isButtonDisabled} type="submit">
                 Submit
             </button>
-            <pre>{JSON.stringify(user,null,1)}</pre>
+            <pre>{JSON.stringify(user,null,2)}</pre>
            </form>
     )
 }

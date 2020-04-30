@@ -18,21 +18,21 @@ We want to create a form to onboard a new user to our system. We need _at least_
 - [x] Name
 - [x] Email
 - [x] Password
-- [ ] Terms of Service (checkbox)
-- [ ] A Submit button to send our form data to the server.
+- [x] Terms of Service (checkbox)
+- [x] A Submit button to send our form data to the server.
 
 ## STEP 2 - Implement Form Validation and Error Messaging
 
 Form validation is one of the facets of an application that makes it feel polished and controlled from a user perspective. With that in mind, implement the following:
 
-- [ ] Using Yup, set up _at least_ two different validations along with custom error messages that will display on screen when validation fails.
+- [x] Using Yup, set up _at least_ two different validations along with custom error messages that will display on screen when validation fails.
 
 ## STEP 3 - Make a POST Request
 
 Being able to `POST` data is a key skill of any developer, no matter your skill level.
 
-- [ ] Craft a `POST` request using `axios` that sends your form data to the following endpoint: _https://reqres.in/api/users_
-- [ ] Verify using a `console.log()` that you are receiving a successful response back
+- [x] Craft a `POST` request using `axios` that sends your form data to the following endpoint: _https://reqres.in/api/users_
+- [x] Verify using a `console.log()` that you are receiving a successful response back
 
 (Note: For those that are curious, we're using [reqres.in](https://reqres.in/) for this assignment's API. It's a free API that allows us to simulate a `POST` request for any data that we send it. Pretty awesome!)
 
