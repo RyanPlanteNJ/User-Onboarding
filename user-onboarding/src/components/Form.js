@@ -84,6 +84,7 @@ export default function Form () {
                     name="name"
                     onChange={inputChange}
                     value={formState.name}
+                    data-cy="name"
                 />
                 {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null }
             </label>
@@ -94,6 +95,7 @@ export default function Form () {
                     id="email"
                     type="email"
                     name="email"
+                    data-cy="email"
                     onChange={inputChange}
                     value={formState.email}
                 />
@@ -108,6 +110,7 @@ export default function Form () {
                     id="password"
                     type="password"
                     name="password"
+                    data-cy="password"
                     onChange={inputChange}
                     value={formState.password}
                 />
